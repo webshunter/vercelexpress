@@ -701,3 +701,15 @@
   }
   var home = new Root()
   home.start(JSON.parse( decodeEntities( document.getElementById('data').innerHTML ) ), "app");
+
+  (function updateData(){
+    $.ajax({
+      url: '/live',
+      success: function(r){
+        console.log(r)
+        setTimeout(function(){
+          updateData()
+        },3000);
+      }
+    })
+  })();
