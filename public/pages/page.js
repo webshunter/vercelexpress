@@ -592,7 +592,7 @@
           paddingRight: '14px',
           fontSize: '14px',
         })
-        .text(data.description)
+        .html(data.description)
       )
       ;
       return d.get();
