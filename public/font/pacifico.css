@@ -1,0 +1,8 @@
+@font-face {
+    font-family: "pacifico";
+    src: url("pacifico.ttf") format("truetype");
+}
+
+.pacifico{
+    font-family: "pacifico", sans-serif;
+}
