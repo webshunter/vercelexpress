@@ -21,19 +21,6 @@ app.get('/', async (req, res) => {
   }
 })
 
-app.get('/live', cors() ,async (req,res)=>{
-  let data = await axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products');  
-  fs.writeFileSync( path.join(__dirname, 'public', 'products.json'), JSON.stringify(data.data), {
-    encoding: "utf8",
-    flag: "a+",
-    mode: 0o666
-  })
-  dataJson = JSON.stringify(data.data);
-  res.json({
-    status: 'success'
-  });
-})
-
 app.get('/about', (req, res) => {
   res.render('about')
 })
