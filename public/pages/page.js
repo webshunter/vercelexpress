@@ -126,7 +126,7 @@
               window.RouteAction.#activeCol.forEach(function(r){
                 r.get().innerHTML = '';
               });
-              window.RouteAction.#loadContent();
+              window.RouteAction.#loadContent(2);
             })
             .val(window.RouteAction.#searchData)
           )
@@ -350,7 +350,7 @@
 
     #activeCol = null;
     
-    #loadContent(){
+    #loadContent(v = 0){
       // 2 columns default
       var col = 2;
 
@@ -363,10 +363,14 @@
       }
 
       var app = this.#app;
-      var columns = window.RouteAction.#columsContainer(col).content;
-      console.log(columns)
-      window.RouteAction.#activeCol = columns;
-      window.RouteAction.#loadDataCard(columns)
+      if(v == 0){
+        var columns = window.RouteAction.#columsContainer(col).content;
+        console.log(columns)
+        window.RouteAction.#activeCol = columns;
+        window.RouteAction.#loadDataCard(columns)
+      }else{
+        window.RouteAction.#loadDataCard(window.RouteAction.#activeCol)
+      }
     }
     
     #bagiData(data, nums=12){
