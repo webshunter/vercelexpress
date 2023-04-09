@@ -597,6 +597,10 @@
       )
     }
 
+    openDetail(d){
+      this.#openDetail(d);
+    }
+
     #detail(){
       var obj = window.RouteAction;
       var h = div().position('fixed')

@@ -44,7 +44,8 @@ app.get('/plant/:produk', async (req, res) => {
       return c;
     }
   });
-  res.render('produk', {origin: origin, port: PORT, data: data[0]}) 
+  var datas = await fs.readFileSync(path.join(__dirname,'public','produk.txt'), 'utf8');
+  res.render('produk', {origin: origin, port: PORT, data: data[0], datas: datas}) 
 })
 
 app.listen(PORT, () => {
