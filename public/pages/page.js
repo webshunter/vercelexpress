@@ -400,15 +400,16 @@
         div()
         .click(function(event){
           event.stopPropagation();
-          let pesan = `Hallo i'am interest to order some kind of plants. ${location.host}/`;
-          location.href = `https://wa.me/6285856134832?text=Hallo%20i'am%20interest%20to%20order%20some%20kind%20of%20plants.%0Ahttps://plantszone.vercel.app/`;
+          let pesan = `Hallo i'am interest to order some kind of plants. `;
+          pesan = encodeURI(pesan)+` https://plantszone.vercel.app/`;
+          location.href = `https://wa.me/6285856134832?text=${pesan}`;
         })
         .css({
           borderRadius: "50%",
           padding: "8px",
           height: "40px",
           width: "40px",
-          background: window.RouteAction.#green,
+          background: '#25d366',
           textAlign: "center",
           color: "white",
           fontSize: "35px",
@@ -497,6 +498,7 @@
     #elementDetailBody = null;
 
     #dataDetail(data){
+      console.log(data)
       var d = div().class('detail').css({
         display: 'block',
         position: 'relative',
@@ -541,7 +543,7 @@
       .child(
         div().css({
           padding: '4px 8px',
-          fontSize: '16px',
+          fontSize: '18px',
           fontWeight: 'bold',
         })
         .text(data.product_name)
@@ -549,25 +551,31 @@
       .child(
         div().css({
           padding: '4px 8px',
-          fontSize: '14px',
+          fontSize: '16px',
+          fontWeight: 'bold',
+          color: '#4b6043'
         })
-        .text('S$'+data.price)
+        .text('$SGD '+data.price)
       )
       .child(
         div().css({
           padding: '4px 8px',
-          fontSize: '14px',
+          fontSize: '16px',
         })
         .child(
           el('button').css({
             borderRadius: "10px",
-            padding: "4px 8px",
+            padding: "8px 12px",
             background: window.RouteAction.#green,
             textAlign: "center",
             color: "white",
+            fontSize: "14px",
             border: "1px dotted green",
-          }).text(`i\'m interest`).click(function(){
-            location.href = 'https://api.whatsapp.com/send?phone=6285804588688&text=Hallo%20i%27am%20interest%20to%20order%20some%20kind%20of%20plants.';
+          }).addModule('data', data).text(`i\'am interested`).click(function(){
+            var data = this.data;
+            let pesan = `Hallo i'am interest with ${data.product_name} ${data.post_id}. $SGD ${data.price.number(2).currency(0)}, please assist `;
+            pesan = encodeURI(pesan)+` https://plantszone.vercel.app/plant/${data.post_id}/`;
+            location.href = `https://wa.me/6285856134832?text=${pesan}`;
             // order now
           })
         )
@@ -585,8 +593,10 @@
     }
 
     #openDetail(d){
-      var body = window.RouteAction.#elementDetailBody;
-      window.RouteAction.#elementDetail.style.display = 'grid';
+      globalThis['modalarea'].parent.style.display = 'block';
+      globalThis['modalarea'].parent.querySelector('.body').style.maxHeight = '60vh';
+      globalThis['modalarea'].parent.querySelector('.body').style.overflow = 'auto';
+      var body = globalThis['modalarea'].parent.querySelector('.body');
       body.innerHTML = '';
       body.style.background = '#fff';
       body.appendChild(
@@ -686,6 +696,22 @@
       window.RouteAction.#tabBottom()
       window.RouteAction.#loadContent()
       window.RouteAction.#detail()
+      document.body.appendChild(
+        div().id('modalarea').class('modal').html(`
+            <div class="modal-content">
+              <div class="modal-header">
+                <span class="close" onclick="globalThis['modalarea'].parent.style.display='none'">&times;</span>
+                <h2 class="head">Detail Product</h2>
+              </div>
+              <div class="modal-body body">
+                <p>Some text in the Modal Body</p>
+                <p>Some other text...</p>
+              </div>
+              <div class="modal-footer footer">
+              </div>
+            </div>
+        `).get()
+      );
     }
     
   }

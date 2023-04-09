@@ -35,8 +35,16 @@ app.get('/live', cors() ,async (req,res)=>{
   fs.writeFileSync(path.join(__dirname,'public','produk.txt'), Json, 'utf8');
 })
 
-app.get('/about', (req, res) => {
-  res.render('about')
+app.get('/plant/:produk', async (req, res) => {
+  var origin = req.get('host');
+  var data = await fs.readFileSync(path.join(__dirname,'public','produk.txt'), 'utf8');
+  data = JSON.parse(data);
+  data = data.data.filter(function(c){
+    if(c.post_id === req.params.produk){
+      return c;
+    }
+  });
+  res.render('produk', {origin: origin, port: PORT, data: data[0]}) 
 })
 
 app.listen(PORT, () => {
