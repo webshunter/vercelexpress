@@ -18,12 +18,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', async (req, res) => {
-  if (fs.existsSync('produk.txt')) {
-    var data = await fs.readFileSync('produk.txt', 'utf8');
+  if (fs.existsSync(path.join(__dirname,'public','produk.txt'))) {
+    var data = await fs.readFileSync(path.join(__dirname,'public','produk.txt'), 'utf8');
     res.render('index', {port: PORT, data: data}) 
   }else{
     let data = await axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products');  
-    fs.writeFileSync('produk.txt', JSON.stringify(data.data), 'utf8');
+    fs.writeFileSync(path.join(__dirname,'public','produk.txt'), JSON.stringify(data.data), 'utf8');
     res.render('index', {port: PORT, data: JSON.stringify(data.data)}) 
   }
 })
@@ -31,7 +31,7 @@ app.get('/', async (req, res) => {
 app.get('/live', cors() ,async (req,res)=>{
   let data = await axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products');  
   let Json = JSON.stringify(data.data);
-  fs.writeFileSync('produk.txt', Json, 'utf8');
+  fs.writeFileSync(path.join(__dirname,'public','produk.txt'), Json, 'utf8');
 })
 
 app.get('/about', (req, res) => {
