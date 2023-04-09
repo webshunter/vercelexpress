@@ -73,7 +73,6 @@
             return c;
           }
         })
-        console.log(g)
       })();
       return nm;
     }
@@ -122,7 +121,6 @@
                 }
               })
               window.RouteAction.#dataPath = window.RouteAction.#bagiData(data)
-              console.log(window.RouteAction.#dataPath)
               window.RouteAction.#activeCol.forEach(function(r){
                 r.get().innerHTML = '';
               });
@@ -211,13 +209,13 @@
         4kolom
       */
 
-      var gap = (nums - 1) * 10;
+      var gap = (nums - 1) * 5;
 
       var grid = div()
       grid.width("calc(100% - "+gap+"px)")
       grid.display("grid")
       grid.css("margin-top", "10px")
-      grid.css("grid-gap", "10px")
+      grid.css("grid-gap", "5px")
       grid.css("grid-template-columns", temps.join(" "));
       content.forEach(function(c){
         grid.child(
@@ -227,7 +225,6 @@
       this.#app.appendChild(
         grid.get()
       )
-      // console.log(content)
       return {
         content: content,
         grid: grid
@@ -236,7 +233,6 @@
     
     #cardImage={
       height: "100%",
-      minHeight:"150px",
       margin:"0",
       padding:"0",
       borderRadius:"8px",
@@ -249,7 +245,6 @@
       var h = event.target.h
       var d = event.target.d
       var all = h.#data;
-      console.log(d)
       h.#openDetail(d, h)
     }
     
@@ -258,13 +253,11 @@
       var img = screen[0].image;
       var name = d.product_name
       var n = div()
-      //console.log(d)
       n.cursor('pointer')
       n.position('relative')
-      n.css("padding","10px")
       n.css("background","white")
       n.css("margin-bottom","10px")
-      n.css("border-radius","4px")
+      n.css("border-radius","8px")
       n.css("box-shadow","0 0 2px rgba(105,105,105,0.5)")
       
       n.child(
@@ -277,22 +270,19 @@
       n.child(
         el("h3")
           .css('font-weight','500')
-          .margin("0")
+          .margin("0 10px")
           .css('margin-top','5px')
           .css('margin-bottom','5px')
           .size("12px")
-          .child(
-            el('i')
-            .class("fas fa-leaf").color(window.RouteAction.#green)
-            .css('margin-right', '2px')
-          )
           .child(
             el('span')
             .text(name)
           )
       )
       n.child(
-        el('p').color("#658354").size('14px').margin('0')
+        el('p').color("#658354")
+        .padding('5px 10px')
+        .size('14px').margin('0')
         .child(
           el('span').text("$")
         )
@@ -333,7 +323,6 @@
           }else{
             cols = columns[e]
           }
-          console.log(cols.get())
           cols.get().appendChild(
             div().child(obj.#card(d)).get()
           )
@@ -352,7 +341,7 @@
     
     #loadContent(v = 0){
       // 2 columns default
-      var col = 2;
+      var col = 3;
 
       if(window.innerWidth > 1024){
         col = 4;
@@ -365,7 +354,6 @@
       var app = this.#app;
       if(v == 0){
         var columns = window.RouteAction.#columsContainer(col).content;
-        console.log(columns)
         window.RouteAction.#activeCol = columns;
         window.RouteAction.#loadDataCard(columns)
       }else{
@@ -398,15 +386,14 @@
       var n = div()
       .css({
         position: 'fixed',
-        height: '50px',
-        width: '100%',
+        display:'inline-block',
+        padding: 'none',
+        margin: 'none',
         bottom: '0',
         right: '0',
-        background: 'white',
-        borderTopRightRadius: '8px',
-        borderTopLeftRadius: '8px',
         zIndex: '99',
-      }).css(window.RouteAction.#shadow)
+        background: 'transparent',
+      })
       .css(window.RouteAction.#flexCenterAlign)
       .css('justify-content', 'center')
       .child(
@@ -416,20 +403,19 @@
           location.href = 'https://api.whatsapp.com/send?phone=6285804588688&text=Hallo%20i%27am%20interest%20to%20order%20some%20kind%20of%20plants.';
         })
         .css({
-          borderRadius: "10px",
-          padding: "8px 15px",
-          margin: "0px 10px",
-          minWidth: "120px",
+          borderRadius: "50%",
+          padding: "8px",
+          height: "30px",
+          width: "30px",
           background: window.RouteAction.#green,
           textAlign: "center",
           color: "white",
+          fontSize: "25px",
           border: "1px dotted green",
         })
+        .css(window.RouteAction.#shadow)
         .child(
-          el('i').class('fas fa-message').css('margin-right', '8px')
-        )
-        .child(
-          el('span').text('Order Now')
+          el('span').child(el('i').class('fab fa-whatsapp'))
         )
       )
 
@@ -496,7 +482,6 @@
         obj.finishScrolAct();
         obj.loadDataCard();
       },1000)
-      console.log("area")
     }
 
     #isMobile(){
@@ -687,7 +672,7 @@
           .id('actionHiden')
           .click(delay(this.#hiddenClick,500)).get()
       )
-      document.body.style.background = "#cedae6"
+      document.body.style.background = "#fefeff"
       document.body.style.paddingTop = "50px"
       document.body.style.paddingBottom = "50px"
       window.RouteAction.#data = data;
@@ -710,7 +695,6 @@
     $.ajax({
       url: '/live',
       success: function(r){
-        console.log(r)
         setTimeout(function(){
           updateData()
         },3000);

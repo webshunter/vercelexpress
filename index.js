@@ -4,6 +4,7 @@ const app = express()
 const axios = require('axios');
 const cors = require('cors');
 const PORT = process.env.PORT || 3000;
+const fs = require('fs');
 
 let dataJson = '';
 
@@ -17,21 +18,20 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', async (req, res) => {
-  if(dataJson == ''){
-    let data = await axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products');  
-    dataJson = JSON.stringify(data.data);
-    res.render('index', {port: PORT, data: JSON.stringify(data.data)}) 
+  if (fs.existsSync('produk.txt')) {
+    var data = await fs.readFileSync('produk.txt', 'utf8');
+    res.render('index', {port: PORT, data: data}) 
   }else{
-    res.render('index', {port: PORT, data: dataJson}) 
+    let data = await axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products');  
+    fs.writeFileSync('produk.txt', JSON.stringify(data.data), 'utf8');
+    res.render('index', {port: PORT, data: JSON.stringify(data.data)}) 
   }
 })
 
 app.get('/live', cors() ,async (req,res)=>{
   let data = await axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products');  
-  dataJson = JSON.stringify(data.data);
-  res.json({
-    status: 'success'
-  });
+  let Json = JSON.stringify(data.data);
+  fs.writeFileSync('produk.txt', Json, 'utf8');
 })
 
 app.get('/about', (req, res) => {
