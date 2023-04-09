@@ -401,7 +401,7 @@
         .click(function(event){
           event.stopPropagation();
           let pesan = `Hallo i'am interest to order some kind of plants. ${location.host}/`;
-          location.href = 'https://api.whatsapp.com/send?phone=6285804588688&text='+encodeURI(pesan);
+          location.href = `https://wa.me/6285856134832?text=Hallo%20i'am%20interest%20to%20order%20some%20kind%20of%20plants.%0Ahttps://plantszone.vercel.app/`;
         })
         .css({
           borderRadius: "50%",
