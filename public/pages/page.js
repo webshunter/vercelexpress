@@ -400,7 +400,8 @@
         div()
         .click(function(event){
           event.stopPropagation();
-          location.href = 'https://api.whatsapp.com/send?phone=6285804588688&text=Hallo%20i%27am%20interest%20to%20order%20some%20kind%20of%20plants.';
+          let pesan = `Hallo i'am interest to order some kind of plants. \n ${location.host}`;
+          location.href = 'https://api.whatsapp.com/send?phone=6285804588688&text='+encodeURI(pesan);
         })
         .css({
           borderRadius: "50%",
