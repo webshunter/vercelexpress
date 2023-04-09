@@ -14,7 +14,7 @@
 
     #green = "#658354";
     
-    #appTitle = "PlantZone";
+    #appTitle = "PlantsZone";
     
     #tabsStyle = {
       position: "fixed",
@@ -94,7 +94,7 @@
             display: 'flex',
             alignItems: 'center',
           }).child(
-            el('h3').text("PLANTZONE")
+            el('h3').text("PLANTSZONE")
           )
         )
         .child(
