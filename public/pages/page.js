@@ -400,7 +400,7 @@
         div()
         .click(function(event){
           event.stopPropagation();
-          let pesan = `Hallo i'am interest to order some kind of plants. \n ${location.host}`;
+          let pesan = `Hallo i'am interest to order some kind of plants. ${location.host}/`;
           location.href = 'https://api.whatsapp.com/send?phone=6285804588688&text='+encodeURI(pesan);
         })
         .css({
