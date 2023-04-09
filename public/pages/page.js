@@ -542,20 +542,20 @@
       )
       .child(
         div().css({
-          padding: '4px 8px',
-          fontSize: '18px',
-          fontWeight: 'bold',
-        })
-        .text(data.product_name)
-      )
-      .child(
-        div().css({
-          padding: '4px 8px',
+          padding: '8px 8px',
           fontSize: '16px',
           fontWeight: 'bold',
           color: '#4b6043'
         })
         .text('$SGD '+data.price)
+      )
+      .child(
+        div().css({
+          padding: '6px 8px',
+          paddingRight: '14px',
+          fontSize: '14px',
+        })
+        .html(data.description)
       )
       .child(
         div().css({
@@ -573,20 +573,12 @@
             border: "1px dotted green",
           }).addModule('data', data).text(`i\'am interested`).click(function(){
             var data = this.data;
-            let pesan = `Hallo i'am interest with ${data.product_name} ${data.post_id}. $SGD ${data.price.number(2).currency(0)}, please assist `;
+            let pesan = `Hallo i'am interest with ${data.product_name}. $SGD ${data.price.number(2).currency(0)}, please assist `;
             pesan = encodeURI(pesan)+` https://plantszone.vercel.app/plant/${data.post_id}/`;
             location.href = `https://wa.me/6285856134832?text=${pesan}`;
             // order now
           })
         )
-      )
-      .child(
-        div().css({
-          padding: '12px 8px',
-          paddingRight: '14px',
-          fontSize: '14px',
-        })
-        .html(data.description)
       )
       ;
       return d.get();
@@ -594,6 +586,7 @@
 
     #openDetail(d){
       globalThis['modalarea'].parent.style.display = 'block';
+      globalThis['modalarea'].parent.querySelector('.head').innerHTML = d.product_name;
       globalThis['modalarea'].parent.querySelector('.body').style.maxHeight = '60vh';
       globalThis['modalarea'].parent.querySelector('.body').style.overflow = 'auto';
       var body = globalThis['modalarea'].parent.querySelector('.body');
