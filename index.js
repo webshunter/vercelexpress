@@ -18,13 +18,14 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', async (req, res) => {
+  var origin = req.get('host');
   if (fs.existsSync(path.join(__dirname,'public','produk.txt'))) {
     var data = await fs.readFileSync(path.join(__dirname,'public','produk.txt'), 'utf8');
-    res.render('index', {port: PORT, data: data}) 
+    res.render('index', {origin: origin, port: PORT, data: data}) 
   }else{
     let data = await axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products');  
     fs.writeFileSync(path.join(__dirname,'public','produk.txt'), JSON.stringify(data.data), 'utf8');
-    res.render('index', {port: PORT, data: JSON.stringify(data.data)}) 
+    res.render('index', {origin: origin, port: PORT, data: JSON.stringify(data.data)}) 
   }
 })
 

@@ -389,8 +389,8 @@
         display:'inline-block',
         padding: 'none',
         margin: 'none',
-        bottom: '0',
-        right: '0',
+        bottom: '10px',
+        right: '10px',
         zIndex: '99',
         background: 'transparent',
       })
@@ -405,12 +405,12 @@
         .css({
           borderRadius: "50%",
           padding: "8px",
-          height: "30px",
-          width: "30px",
+          height: "40px",
+          width: "40px",
           background: window.RouteAction.#green,
           textAlign: "center",
           color: "white",
-          fontSize: "25px",
+          fontSize: "35px",
           border: "1px dotted green",
         })
         .css(window.RouteAction.#shadow)
