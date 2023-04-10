@@ -613,7 +613,10 @@
         div().css("text-align","center")
         .padding("12px 8px")
         .child(
-          el('i').class("fas fa-share")
+          el('i').class("fa-solid fa-share-nodes")
+        )
+        .child(
+         el('span').text(' shared')
         )
         .addModule('data',e)
         .click(function(){
@@ -641,6 +644,9 @@
         .padding("12px 8px")
         .child(
           el('i').class("fas fa-times")
+        )
+        .child(
+          el("span").text(" close")
         )
         .click(function(){
           globalThis['modalarea']
