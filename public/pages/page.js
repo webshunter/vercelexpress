@@ -587,6 +587,7 @@
     #openDetail(d){
       globalThis['modalarea'].parent.style.display = 'block';
       globalThis['modalarea'].parent.querySelector('.head').innerHTML = d.product_name;
+      globalThis['modalarea'].parent.querySelector('.head').style.fontSize = '20px';
       globalThis['modalarea'].parent.querySelector('.body').style.maxHeight = '60vh';
       globalThis['modalarea'].parent.querySelector('.body').style.overflow = 'auto';
       var body = globalThis['modalarea'].parent.querySelector('.body');
