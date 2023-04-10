@@ -595,6 +595,59 @@
       body.appendChild(
         window.RouteAction.#dataDetail(d)
       )
+      globalThis['modalarea'].parent.querySelector('.footer').innerHTML='';
+      
+      globalThis['modalarea'].parent.querySelector('.footer')
+      .appendChild(
+        window.RouteAction.#footercard(d)
+      )
+    }
+    
+    #footercard(e){
+      var d = div()
+      .css({
+        display : 'grid',
+        gridTemplateColumns : '50% 50%',
+      })
+      d.child(
+        div().css("text-align","center")
+        .padding("12px 8px")
+        .child(
+          el('i').class("fas fa-share")
+        )
+        .addModule('data',e)
+        .click(function(){
+          if (navigator.share) {
+            var data = this.data;
+            console.log(data)
+            let pesan = `Please check this product: ${data.product_name}. $SGD ${data.price.number(2).currency(0)} in `;
+            //pesan = encodeURI(pesan)+` https://plantszone.vercel.app/plant/${data.post_id}/`;
+            //location.href = `https://wa.me/6285856134832?text=${pesan}`;
+            navigator.share({
+              title: data.product_name,
+              text: pesan,
+              url: `https://plantszone.vercel.app/plant/${data.post_id}/`
+            }).then(() => {
+              console.log('Thanks for sharing!');
+            })
+            .catch(console.error);
+          } else {
+            // fallback
+          }
+        })
+      )
+      d.child(
+        div().css("text-align","center")
+        .padding("12px 8px")
+        .child(
+          el('i').class("fas fa-times")
+        )
+        .click(function(){
+          globalThis['modalarea']
+          .parent.style.display='none'
+        })
+      )
+      return d.get()
     }
 
     openDetail(d){
