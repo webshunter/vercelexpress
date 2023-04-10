@@ -525,7 +525,7 @@
                 div().css('display', 'block').width(h+'px').child(
                   el('div').id('slider'+Date.now()).html(`
                     ${data.product_media.map(function(t){
-                      return `<div>
+                      return `<div onclick="window.open('${t.image}');">
                         <img width='100%' src="${t.image}" />
                       </div>`;
                     }).join('')}
