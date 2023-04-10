@@ -571,7 +571,7 @@
             color: "white",
             fontSize: "14px",
             border: "1px dotted green",
-          }).addModule('data', data).text(`i\'am interested`).click(function(){
+          }).addModule('data', data).text(`I\'am interested`).click(function(){
             var data = this.data;
             let pesan = `Hallo i'am interest with ${data.product_name}. $SGD ${data.price.number(2).currency(0)}, please assist `;
             pesan = encodeURI(pesan)+` https://plantszone.vercel.app/plant/${data.post_id}/`;
