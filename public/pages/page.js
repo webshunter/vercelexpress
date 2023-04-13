@@ -264,7 +264,7 @@
         div()
         .css(window.RouteAction.#cardImage)
         .html(
-          "<img alt='"+name+"' style='display:inline-block;overflow:hidden;border-radius:8px;margin:0;padding:0;' width='100%'src='"+img+"'></img>"
+          "<img alt='"+name+"' style='display:inline-block;overflow:hidden;border-radius:8px;margin:0;padding:0;' width='100%'src='"+img.split("_small").join("")+"'></img>"
         )
       )
       n.child(
@@ -525,8 +525,8 @@
                 div().css('display', 'block').width(h+'px').child(
                   el('div').id('slider'+Date.now()).html(`
                     ${data.product_media.map(function(t){
-                      return `<div onclick="window.open('${t.image}');">
-                        <img width='100%' src="${t.image}" />
+                      return `<div onclick="window.open('${t.image.split("_small").join("")}');">
+                        <img width='100%' src="${t.image.split("_small").join("")}" />
                       </div>`;
                     }).join('')}
                   `).load(function(r){
@@ -757,7 +757,6 @@
         div().id('modalarea').class('modal').html(`
             <div class="modal-content">
               <div class="modal-header">
-                <span class="close" onclick="globalThis['modalarea'].parent.style.display='none'">&times;</span>
                 <h2 class="head">Detail Product</h2>
               </div>
               <div class="modal-body body">

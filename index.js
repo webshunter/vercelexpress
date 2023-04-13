@@ -30,6 +30,7 @@ app.get('/', async (req, res) => {
   }
 })
 
+
 app.get('/sitemap.xml', cors(), async (req,res) => {
   var data = await fs.readFileSync(path.join(__dirname,'public','produk.txt'), 'utf8');
   data = JSON.parse(data).data;
