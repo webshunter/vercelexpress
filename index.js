@@ -30,6 +30,33 @@ app.get('/', async (req, res) => {
   }
 })
 
+app.get('/sitemap.xml', cors(), async (req,res) => {
+  var data = await fs.readFileSync(path.join(__dirname,'public','produk.txt'), 'utf8');
+  data = JSON.parse(data).data;
+  let xml_content = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    '  <url>',
+    '    <loc>https://plantszone.vercel.app/</loc>',
+    '    <lastmod>2023-04-23</lastmod>',
+    '    <changefreq>daily</changefreq>',
+    '    <priority>1.0</priority>',
+    '  </url>'
+  ];
+  data.forEach((dd)=>{
+    xml_content.push('  <url>');
+    xml_content.push('    <loc>https://plantszone.vercel.app/plant/'+dd.post_id+'</loc>')
+    xml_content.push('    <lastmod>2023-04-23</lastmod>')
+    xml_content.push('    <changefreq>daily</changefreq>')
+    xml_content.push('    <priority>1.0</priority>')
+    xml_content.push('  </url>');
+
+  })
+  xml_content.push('</urlset>');
+  res.set('Content-Type', 'text/xml')
+  res.send(xml_content.join('\n'))
+})
+
 app.get('/live', cors() ,async (req,res)=>{
   let data = await axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products');  
   let Json = JSON.stringify(data.data);
