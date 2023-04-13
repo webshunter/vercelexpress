@@ -5,6 +5,7 @@ const axios = require('axios');
 const cors = require('cors');
 const PORT = process.env.PORT || 3000;
 const fs = require('fs');
+const html2canvas = require('html2canvas')
 
 let dataJson = '';
 
