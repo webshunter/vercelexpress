@@ -25,7 +25,11 @@ app.get('/', async (req, res) => {
     res.render('index', {origin: origin, port: PORT, data: data}) 
   }else{
     let data = await axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products');  
-    fs.writeFileSync(path.join(__dirname,'public','produk.txt'), JSON.stringify(data.data), 'utf8');
+    fs.writeFileSync(path.join(__dirname,'public','produk.txt'), JSON.stringify(data.data), {
+      encoding: "utf8",
+      flag: "a+",
+      mode: 0o777
+    });
     res.render('index', {origin: origin, port: PORT, data: JSON.stringify(data.data)}) 
   }
 })
@@ -61,7 +65,11 @@ app.get('/sitemap.xml', cors(), async (req,res) => {
 app.get('/live', cors() , (req,res)=>{
   axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products')
   .then(function(data){
-    fs.writeFileSync(path.join(__dirname,'public','produk.txt'), JSON.stringify(data.data), 'utf8');
+    fs.writeFileSync(path.join(__dirname,'public','produk.txt'), JSON.stringify(data.data), {
+      encoding: "utf8",
+      flag: "a+",
+      mode: 0o777
+    });
     res.send({
       message: 'success'
     })
