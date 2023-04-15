@@ -20,8 +20,8 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', async (req, res) => {
   var origin = req.get('host');
-  if (fs.existsSync(path.join(__dirname,'public','produk.txt'))) {
-    var data = await fs.readFileSync(path.join(__dirname,'public','produk.txt'), {
+  if (fs.existsSync(path.join(__dirname,'public','produkf.txt'))) {
+    var data = await fs.readFileSync(path.join(__dirname,'public','produkf.txt'), {
       encoding: "utf8",
       flag: "a+",
       mode: 0o777
@@ -29,7 +29,7 @@ app.get('/', async (req, res) => {
     res.render('index', {origin: origin, port: PORT, data: data}) 
   }else{
     let data = await axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products');  
-    fs.writeFileSync(path.join(__dirname,'public','produk.txt'), JSON.stringify(data.data), {
+    fs.writeFileSync(path.join(__dirname,'public','produkf.txt'), JSON.stringify(data.data), {
       encoding: "utf8",
       flag: "a+",
       mode: 0o777
@@ -40,7 +40,7 @@ app.get('/', async (req, res) => {
 
 
 app.get('/sitemap.xml', cors(), async (req,res) => {
-  var data = await fs.readFileSync(path.join(__dirname,'public','produk.txt'), 'utf8');
+  var data = await fs.readFileSync(path.join(__dirname,'public','produkf.txt'), 'utf8');
   data = JSON.parse(data).data;
   let xml_content = [
     '<?xml version="1.0" encoding="UTF-8"?>',
@@ -69,7 +69,7 @@ app.get('/sitemap.xml', cors(), async (req,res) => {
 app.get('/live', cors() , (req,res)=>{
   // axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products')
   // .then(function(data){
-  //   fs.writeFileSync(path.join(__dirname,'public','produk.txt'), JSON.stringify(data.data), {
+  //   fs.writeFileSync(path.join(__dirname,'public','produkf.txt'), JSON.stringify(data.data), {
   //     encoding: "utf8",
   //     flag: "a+",
   //     mode: 0o777
@@ -82,14 +82,14 @@ app.get('/live', cors() , (req,res)=>{
 
 app.get('/plant/:produk', async (req, res) => {
   var origin = req.get('host');
-  var data = await fs.readFileSync(path.join(__dirname,'public','produk.txt'), 'utf8');
+  var data = await fs.readFileSync(path.join(__dirname,'public','produkf.txt'), 'utf8');
   data = JSON.parse(data);
   data = data.data.filter(function(c){
     if(c.post_id === req.params.produk){
       return c;
     }
   });
-  var datas = await fs.readFileSync(path.join(__dirname,'public','produk.txt'), 'utf8');
+  var datas = await fs.readFileSync(path.join(__dirname,'public','produkf.txt'), 'utf8');
   res.render('produk', {origin: origin, port: PORT, data: data[0], datas: datas}) 
 })
 
