@@ -58,12 +58,14 @@ app.get('/sitemap.xml', cors(), async (req,res) => {
   res.send(xml_content.join('\n'))
 })
 
-app.get('/live', cors() , async (req,res)=>{
-  let data = await axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products');  
-  fs.writeFileSync(path.join(__dirname,'public','produk.txt'), JSON.stringify(data.data), 'utf8');
-  res.send({
-    message: 'success'
-  })
+app.get('/live', cors() , (req,res)=>{
+  axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products')
+  .then(function(data){
+    fs.writeFileSync(path.join(__dirname,'public','produk.txt'), JSON.stringify(data.data), 'utf8');
+    res.send({
+      message: 'success'
+    })
+  })  
 })
 
 app.get('/plant/:produk', async (req, res) => {
