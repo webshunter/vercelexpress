@@ -25,6 +25,11 @@ app.get('/', async (req, res) => {
 
     })
     var data = await fs.readFileSync(path.join(__dirname,'public','plants.txt'), 'utf8');
+    if(dataJson != ''){
+      data = dataJson;
+    }else{
+      dataJson = data;
+    }
     res.render('index', {origin: origin, port: PORT, data: data}) 
   }else{
     let data = await axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products');  
@@ -63,9 +68,7 @@ app.get('/sitemap.xml', cors(), async (req,res) => {
 
 app.get('/live', cors() , async (req,res)=>{
   let data = await axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products');  
-  fs.writeFileSync(path.join(__dirname,'public','plants.txt'), JSON.stringify(data.data), 'utf8');
-  fs.chmod(path.join(__dirname,'public','plants.txt'),0o777,(err)=>{
-  })
+  dataJson = JSON.stringify(data.data);
   res.send({
     message: 'success'
   })
@@ -74,6 +77,9 @@ app.get('/live', cors() , async (req,res)=>{
 app.get('/plant/:produk', async (req, res) => {
   var origin = req.get('host');
   var data = await fs.readFileSync(path.join(__dirname,'public','plants.txt'), 'utf8');
+  if(dataJson != ''){
+    data = dataJson;
+  }
   data = JSON.parse(data);
   data = data.data.filter(function(c){
     if(c.post_id === req.params.produk){
