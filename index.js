@@ -23,7 +23,7 @@ app.get('/', async (req, res) => {
   if(dataJson != ''){
       res.render('index', {origin: origin, port: PORT, data: dataJson}) 
   }else{
-      let data = await axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products');  
+      let data = await axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products?v='+Date.now());  
       dataJson = JSON.stringify(data.data)
       res.render('index', {origin: origin, port: PORT, data: JSON.stringify(data.data)}) 
   }
@@ -58,7 +58,7 @@ app.get('/sitemap.xml', cors(), async (req,res) => {
 })
 
 app.get('/live', cors() , async (req,res)=>{
-  let data = await axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products');  
+  let data = await axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products?v='+Date.now());  
   dataJson = JSON.stringify(data.data);
   res.send({
     message: 'success'
