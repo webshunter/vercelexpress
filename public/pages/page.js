@@ -120,7 +120,7 @@
                   return c;
                 }
               })
-              window.RouteAction.#dataPath = window.RouteAction.#bagiData(data)
+              window.RouteAction.#dataPath = window.RouteAction.#bagiData(data.sortArrayObjectDesc('post_id'))
               window.RouteAction.#activeCol.forEach(function(r){
                 r.get().innerHTML = '';
               });
@@ -744,7 +744,7 @@
       document.body.style.paddingTop = "50px"
       document.body.style.paddingBottom = "50px"
       window.RouteAction.#data = data;
-      window.RouteAction.#dataPath = window.RouteAction.#bagiData(data.data)
+      window.RouteAction.#dataPath = window.RouteAction.#bagiData(data.data.sortArrayObjectDesc('post_id'))
       window.RouteAction.#app = document.getElementById(id);
       el(window.RouteAction.#app)
       .css("width","100%")
@@ -772,7 +772,11 @@
     
   }
   var home = new Root()
-  home.start(JSON.parse( decodeEntities( document.getElementById('data').innerHTML ) ), "app");
+  globalThis.dataproduk =
+    JSON.parse( decodeEntities( document.getElementById('data').innerHTML ) );
+  home.start(
+    dataproduk
+  , "app");
 
   (function updateData(){
     $.ajax({
