@@ -20,21 +20,12 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', async (req, res) => {
   var origin = req.get('host');
-  if (fs.existsSync(path.join(__dirname,'public','plants.txt'))) {
-    fs.chmod(path.join(__dirname,'public','plants.txt'),0o777,(err)=>{
-
-    })
-    var data = await fs.readFileSync(path.join(__dirname,'public','plants.txt'), 'utf8');
-    if(dataJson != ''){
-      data = dataJson;
-    }else{
-      dataJson = data;
-    }
-    res.render('index', {origin: origin, port: PORT, data: data}) 
+  if(dataJson != ''){
+      res.render('index', {origin: origin, port: PORT, data: dataJson}) 
   }else{
-    let data = await axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products');  
-    fs.writeFileSync(path.join(__dirname,'public','plants.txt'), JSON.stringify(data.data), 'utf8');
-    res.render('index', {origin: origin, port: PORT, data: JSON.stringify(data.data)}) 
+      let data = await axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products');  
+      dataJson = JSON.stringify(data.data)
+      res.render('index', {origin: origin, port: PORT, data: JSON.stringify(data.data)}) 
   }
 })
 
