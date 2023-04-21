@@ -773,7 +773,7 @@
   }
   var home = new Root()
   globalThis.dataproduk =
-    JSON.parse( decodeEntities( document.getElementById('data').innerHTML ) );
+    JSON.parse( document.getElementById('data').innerHTML );
   home.start(
     dataproduk
   , "app");
