@@ -276,7 +276,7 @@
           .size("12px")
           .child(
             el('span')
-            .text(name)
+            .html(name)
           )
       )
       n.child(
