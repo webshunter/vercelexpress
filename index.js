@@ -67,10 +67,7 @@ app.get('/live', cors() , async (req,res)=>{
 
 app.get('/plant/:produk', async (req, res) => {
   var origin = req.get('host');
-  var data = await fs.readFileSync(path.join(__dirname,'public','plants.txt'), 'utf8');
-  if(dataJson != ''){
-    data = dataJson;
-  }
+  var data = dataJson;
   data = JSON.parse(data);
   data = data.data.filter(function(c){
     if(c.post_id === req.params.produk){
