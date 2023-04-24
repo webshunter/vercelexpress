@@ -6,6 +6,25 @@ const cors = require('cors');
 const PORT = process.env.PORT || 3000;
 const fs = require('fs');
 const html2canvas = require('html2canvas')
+const mysql = require('mysql');
+
+function query(qr, func){
+  var connection = mysql.createConnection({
+  host     : '103.152.118.236',
+  user     : 'gugus',
+  password : 'feed$123$',
+  database : 'pz'
+  });
+  
+  connection.connect();
+  
+  connection.query(qr, function (error, results, fields) {
+  if (error) throw error;
+      func(results);
+  });
+  
+  connection.end();
+}
 
 let dataJson = '';
 
@@ -20,13 +39,10 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', async (req, res) => {
   var origin = req.get('host');
-  if(dataJson != ''){
-      res.render('index', {origin: origin, port: PORT, data: dataJson}) 
-  }else{
-      let data = await axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products?v='+Date.now());  
-      dataJson = JSON.stringify(data.data)
-      res.render('index', {origin: origin, port: PORT, data: JSON.stringify(data.data)}) 
-  }
+  query(`SELECT data kl FROM datapz WHERE kode = 'data'`, function(d){
+    const plain = Buffer.from(d[0].kl, 'base64').toString('utf8')
+    res.render('index', {origin: origin, port: PORT, data : plain}) 
+  })
 })
 
 
@@ -67,15 +83,17 @@ app.get('/live', cors() , async (req,res)=>{
 
 app.get('/plant/:produk', async (req, res) => {
   var origin = req.get('host');
-  var data = dataJson;
-  data = JSON.parse(data);
-  data = data.data.filter(function(c){
-    if(c.post_id === req.params.produk){
-      return c;
-    }
-  });
-  var datas = await fs.readFileSync(path.join(__dirname,'public','plants.txt'), 'utf8');
-  res.render('produk', {origin: origin, port: PORT, data: data[0], datas: datas}) 
+  query(`SELECT data kl FROM datapz WHERE kode = 'data'`, function(d){
+    const plain = Buffer.from(d[0].kl, 'base64').toString('utf8');
+    var data = plain;
+    data = JSON.parse(data);
+    data = data.data.filter(function(c){
+      if(c.post_id === req.params.produk){
+        return c;
+      }
+    });
+    res.render('produk', {origin: origin, port: PORT, data: data[0], datas: plain}) 
+  })
 })
 
 app.listen(PORT, () => {
