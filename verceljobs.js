@@ -24,14 +24,12 @@ function query(qr, func){
 axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products?v='+Date.now())
 .then(function(c){
     var t = JSON.stringify(c.data);
+    console.log(t)
     t = Buffer.from(t, 'utf8').toString('base64');
     query(`UPDATE datapz SET data = '${t}' WHERE kode = 'data' `, function(r){
-        axios.get('https://plantszone.vercel.app/live').then(function(cs){
-            console.log(cs)
-            setTimeout(() => {
-                lds();
-            }, 3000);
-        })
+        setTimeout(() => {
+            lds();
+        }, 1500);
     })
 });  
 })();

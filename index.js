@@ -81,6 +81,13 @@ app.get('/live', cors() , async (req,res)=>{
   })
 })
 
+app.get('/getdata', (req,res) => {
+  axios.get('https://sindomall.com/v2/mobile/products/455317')
+  .then(function(data){
+    res.send(data.data)
+  });
+})
+
 app.get('/plant/:produk', async (req, res) => {
   var origin = req.get('host');
   query(`SELECT data kl FROM datapz WHERE kode = 'data'`, function(d){
@@ -95,6 +102,8 @@ app.get('/plant/:produk', async (req, res) => {
     res.render('produk', {origin: origin, port: PORT, data: data[0], datas: plain}) 
   })
 })
+
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`)
