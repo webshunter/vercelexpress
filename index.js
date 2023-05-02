@@ -81,7 +81,7 @@ app.get('/live', cors() , async (req,res)=>{
   })
 })
 
-app.get('/getdata', (req,res) => {
+app.get('/getdata', cors() ,(req,res) => {
   axios.get('https://sindomall.com/v2/mobile/products/455317')
   .then(function(data){
     res.send(data.data)
