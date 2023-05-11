@@ -17,7 +17,6 @@
     "fs": "^0.0.1-security",
     "html2canvas": "^1.4.1",
     "mysql": "^2.18.1",
-    "read-excel-file": "^5.6.1",
     "xlsx": "^0.18.5"
   }
 }
