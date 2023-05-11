@@ -1,9 +1,19 @@
-const html2canvas = require('html2canvas');
-const fs = require('fs');
-const path= require('path');
-const axios = require('axios');
+const reader = require('xlsx')
 
-axios.get('https://sindomall.com/v2/mobile/products/455317')
-.then(function(data){
-    console.log(data.data)
-});  
+const file = reader.readFile('post.xlsx')
+  
+let data = []
+  
+const sheets = file.SheetNames
+  
+for(let i = 0; i < sheets.length; i++)
+{
+   const temp = reader.utils.sheet_to_json(
+        file.Sheets[file.SheetNames[i]])
+        temp.forEach((res) => {
+        data.push(res)
+   })
+}
+  
+// Printing data
+console.log(data)

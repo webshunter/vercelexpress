@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 3000;
 const fs = require('fs');
 const html2canvas = require('html2canvas')
 const mysql = require('mysql');
+const reader = require('xlsx')
 
 function query(qr, func){
   var connection = mysql.createConnection({
@@ -103,6 +104,25 @@ app.get('/plant/:produk', async (req, res) => {
   })
 })
 
+app.get('/excel', async (req,res) => {
+  const file = reader.readFile('post.xlsx')
+  
+  let data = []
+    
+  const sheets = file.SheetNames
+    
+  for(let i = 0; i < sheets.length; i++)
+  {
+     const temp = reader.utils.sheet_to_json(
+          file.Sheets[file.SheetNames[i]])
+          temp.forEach((res) => {
+          data.push(res)
+     })
+  }
+    
+  // Printing data
+  res.render(data);
+})
 
 
 app.listen(PORT, () => {
