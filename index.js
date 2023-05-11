@@ -121,7 +121,7 @@ app.get('/excel', async (req,res) => {
   }
     
   // Printing data
-  res.render(data);
+  res.render(JSON.stringify(data));
 })
 
 
