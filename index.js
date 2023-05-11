@@ -105,7 +105,7 @@ app.get('/plant/:produk', async (req, res) => {
 })
 
 app.get('/excel', async (req,res) => {
-  const file = reader.readFile('post.xlsx')
+  const file = reader.readFile(path.join(__dirname,'public','post.xlsx'))
   
   let data = []
     
