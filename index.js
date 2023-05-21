@@ -10,10 +10,10 @@ const reader = require('xlsx')
 
 function query(qr, func){
   var connection = mysql.createConnection({
-  host     : '103.152.118.236',
-  user     : 'gugus',
-  password : 'feed$123$',
-  database : 'pz'
+  host     : '103.112.244.66',
+  user     : 'indowebs_wp970',
+  password : 'A]SpW(2c96',
+  database : 'indowebs_wp970'
   });
   
   connection.connect();
@@ -123,6 +123,30 @@ app.get('/excel', async (req,res) => {
   res.json(data);
 })
 
+app.get('/update/data', cors(), (req,res) => {
+  axios.get('https://sindomall.com/seller/0c3905aab62bb06905442d31e93e48d0f57b12f3836c831e9e39049a70b9b163/products?v=' + Date.now())
+    .then(function (c) {
+      var t = JSON.stringify(c.data);
+      console.log('save')
+      t = Buffer.from(t, 'utf8').toString('base64');
+      query(`UPDATE datapz SET data = '${t}' WHERE kode = 'data' `, function (r) {
+        res.send('update')
+      })
+    });
+})
+
+app.get('/get/data', cors(), (req,res) => {
+  query(`SELECT * FROM produk `, function (r) {
+    res.json(r)
+  });
+})
+
+app.get('/delete/data/:kode', cors(), (req,res) => {
+  var kode = req.params.kode;
+  query(`DELETE FROM produk WHERE kode = '${kode}' `, function (r) {
+    res.send('delete')
+  });
+})
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`)
