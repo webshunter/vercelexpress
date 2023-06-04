@@ -112,6 +112,7 @@
 
     //alert(div)
     var body = document.body;
+    
     body.appendChild(
         el('button').class('btn btn-primary').css({
             width: '50px',
