@@ -119,6 +119,54 @@
             height: '50px',
             position: 'fixed',
             bottom: '10px',
+            right: '60px',
+            zIndex: '8887',
+        }).child(
+            el('i').class('fas fa-tag')
+        ).click(function(){
+            (function(){
+                var typ = Array.from(document.querySelectorAll('.grid-item__image'));
+                typ.forEach(function(e){
+                    var p = e;
+                    p.style.position = 'relative';
+                    var o = e.dataset.id;
+                    function callv() {
+                        p.appendChild(
+                            el('button').css({
+                                position:'absolute',
+                                zIndex:9
+                            }).addModule('o',o).class('action btn btn-primary w-100').text('add data').click(function (event) {
+                                event.stopPropagation();
+                                var tlink = 'https://plantszone.vercel.app/add/data/'+event.target.o;
+                                console.log(tlink)
+                                var xw = document.createElement('script');
+                                var ld = cssLoader();
+                                xw.onload = function () {
+                                    xw.remove();
+                                    ld.remove();
+                                }
+                                xw.src = tlink;
+                                document.head.appendChild(xw);
+                            }).get()
+                        )
+                    }
+                    if(p.querySelector('button.action') == undefined){
+                        callv()
+                    }else{
+                        p.querySelector('button.action').remove()
+                        callv()
+                    }
+                })
+            })();
+        }).get()
+    );
+    
+    body.appendChild(
+        el('button').class('btn btn-primary').css({
+            width: '50px',
+            height: '50px',
+            position: 'fixed',
+            bottom: '10px',
             right: '10px',
             zIndex: '8887',
         }).child(
