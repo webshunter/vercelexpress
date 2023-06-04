@@ -151,7 +151,7 @@ const updateX = function(t){
 app.get('/update/data/pr', cors(), (req, res) => {
   axios.get('https://api.sindomall.com/products?limit=300&keyword=plantszone&page=1&order=_id:desc')
   .then(function (c) {
-    res.json(updateX(t))
+    res.json(updateX(c))
   })
 })
 
