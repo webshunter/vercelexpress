@@ -184,7 +184,7 @@
             .child(
                 el("button").class("mt-2 w-100 btn btn-primary").text("Update Data")
                 .click(function(){
-                    var tlink = 'http://103.152.118.236:5000/update/data';
+                    var tlink = 'https://plantszone.vercel.app/update/data';
                     var xw = document.createElement('script');
                     var ld = cssLoader();
                     xw.onload = function(){
