@@ -122,7 +122,7 @@ app.get('/excel', async (req, res) => {
   res.json(data);
 })
 
-const updateX = function(t){
+const updateX = function(c){
   var t = c.data.data;
   var d = t.map(function (y, z) {
     var num = 6;
