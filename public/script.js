@@ -113,9 +113,25 @@
     //alert(div)
     var body = document.body;
     body.appendChild(
-         div().css({
+        el('button').class('btn btn-primary').css({
+            width: '50px',
+            height: '50px',
+            position: 'fixed',
+            bottom: '10px',
+            right: '10px',
+            zIndex: '8887',
+        }).child(
+            el('i').class('fas fa-home')
+        ).click(function(){
+            globalThis['homebutton'].parent.style.display = 'block';
+        }).get()
+    );
+
+    body.appendChild(
+         div().id('homebutton').css({
            zIndex: "8888",
            position: "fixed",
+           display: "none",
            top: 0,
            left:0,
            width: "100vw",
