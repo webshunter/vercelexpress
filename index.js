@@ -153,9 +153,7 @@ app.get('/update/data', cors(), (req, res) => {
       console.log(t);
       t = Buffer.from(t, 'utf8').toString('base64');
       query(`UPDATE datapz SET data = '${t}' WHERE kode = 'data' `, function (r) {
-        res.json({
-          success: 'updated'
-        })
+        res.send(`alert('update')`)
       })
     });
 })
