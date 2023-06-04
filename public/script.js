@@ -212,6 +212,12 @@
                 })
             )
             .child(
+                el("button").class("mt-2 w-100 btn btn-primary").text("Close")
+                .click(function(){
+                    globalThis['homebutton'].parent.style.display = 'none';
+                })
+            )
+            .child(
                 div().id('total').css({textAlign: 'center'}).load(function(){
                     (function lid(){
                         var xw = document.createElement('script');
