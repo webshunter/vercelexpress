@@ -151,7 +151,19 @@ const updateX = function(c){
 app.get('/update/data/pr', cors(), (req, res) => {
   axios.get('https://api.sindomall.com/products?limit=300&keyword=plantszone&page=1&order=_id:desc')
   .then(function (c) {
-    res.json(updateX(c))
+    let d = `INSERT INTO produk (kode,data) SELECT a.kode, a.data FROM (\n`+updateX(c).map(function(r){
+      return {
+        kode: r.post_id,
+        data: Buffer.from(JSON.stringify(r), 'utf8').toString('base64')
+      }
+    }).map(function(r){
+      return `SELECT '${r.kode}' kode, '${r.data}' data`
+    }).join("\n UNION ALL \n")+`) a LEFT JOIN produk p ON p.kode = a.kode WHERE p.kode IS NULL`;
+    query(`TRUNCATE produk`, function(r){
+      query(d, function(r){
+        res.send(`alert('update)`)
+      });
+    });
   })
 })
 
