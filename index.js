@@ -158,32 +158,7 @@ app.get('/update/data/pr', cors(), (req, res) => {
 app.get('/update/data', cors(), (req, res) => {
   axios.get('https://api.sindomall.com/products?limit=300&keyword=plantszone&page=1&order=_id:desc')
     .then(function (c) {
-      var t = c.data.data;
-
-      var d = t.map(function (y, z) {
-        var num = 6;
-        var c = {
-          post_id: y._id,
-          product_name: y.name,
-          description: y.description,
-          qty: '1',
-          price: y.price.toString(),
-          pot_number: y.number,
-          product_media: y.images.map(function (a, i) {
-            return {
-              id: (function () {
-                num++;
-                return num;
-              }),
-              image: 'https://api.sindomall.com/storage/browse?key=' + a.w1024,
-            }
-          })
-        }
-        return c;
-      })
-
-      t = JSON.stringify({ data: d });
-      console.log(t);
+      var t = JSON.stringify({ data: updateX(c) });
       t = Buffer.from(t, 'utf8').toString('base64');
       query(`UPDATE datapz SET data = '${t}' WHERE kode = 'data' `, function (r) {
         res.send(`alert('update')`)
