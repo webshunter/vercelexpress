@@ -122,6 +122,14 @@ app.get('/excel', async (req, res) => {
   res.json(data);
 })
 
+app.get('/update/data/pr', cors(), (req, res) => {
+  axios.get('https://api.sindomall.com/products?limit=300&keyword=plantszone&page=1&order=_id:desc')
+  .then(function (c) {
+    var t = c.data.data;
+    res.json(t)
+  })
+})
+
 app.get('/update/data', cors(), (req, res) => {
   axios.get('https://api.sindomall.com/products?limit=300&keyword=plantszone&page=1&order=_id:desc')
     .then(function (c) {
