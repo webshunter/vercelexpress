@@ -112,7 +112,7 @@
 
     //alert(div)
     var body = document.body;
-    
+
     body.appendChild(
         el('button').class('btn btn-primary').css({
             width: '50px',
@@ -124,7 +124,7 @@
         }).child(
             el('i').class('fas fa-home')
         ).click(function(){
-            globalThis['homebutton'].parent.style.display = 'block';
+            globalThis['homebutton'].parent.style.display = 'flex';
         }).get()
     );
 
@@ -132,13 +132,12 @@
          div().id('homebutton').css({
            zIndex: "8888",
            position: "fixed",
-           display: "none",
            top: 0,
            left:0,
            width: "100vw",
            height: "100vh",
            background: "#fff",
-           display: "flex",
+           display: "none",
            alignItems: "center",
            justifyContent: "center"
          })
