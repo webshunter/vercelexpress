@@ -1,5 +1,3 @@
-window.addEventListener('load', function () {
-    //alert("ok")
     var script = document.createElement('script');
     script.onload = function () {
 

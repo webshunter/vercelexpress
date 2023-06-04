@@ -1,4 +1,4 @@
 node_modules/
 nodemon.json
 run.js
-run.sh
+push.sh
